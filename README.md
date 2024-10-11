@@ -2,11 +2,11 @@
 
 
 ## Sobre
-Trabalho realizado para a matéria de Inteligência Articial na graduação de Engenharia da Computação na UNICEP São Carlos.
+Trabalho realizado para a matéria de Inteligência Artificial na graduação de Engenharia da Computação na UNICEP São Carlos.
 
 
 ## Como iniciar
-Instale as depedências do projeto:
+Instale as dependências do projeto:
 
 ```
 pip install pygame
@@ -14,8 +14,10 @@ pip install pygame
 
 Execute o arquivo main.py
 
+
 ## Baseado em
 - [Pydash](https://github.com/y330/Pydash).
+
 
 ## Projeto por
 
