@@ -278,7 +278,7 @@ def init_level(map):
                 Trick(trick, (x, y), elements)
 
             if col == "End":
-                End(avatar, (x, y), elements)
+                End(block, (x, y), elements)
             x += 32
         y += 32
         x = 0
@@ -568,15 +568,16 @@ def draw_stats(surf, money=0):
     for i in range(1, money):
         screen.blit(coin, (BAR_LENGTH, 25))
     if (fill <= BAR_LENGTH):
-        fill += 0.5
-        print('Barra de Progresso: ' + str(fill) + '%') # Teste para ver progressão
+        fill += 0.27
+        print('Barra de Progresso: ', str("{:.2f}".format(fill))) # Teste para ver progressão
     else:
         fill += 0.0
     outline_rect = pygame.Rect(0, 0, BAR_LENGTH, BAR_HEIGHT)
     fill_rect = pygame.Rect(0, 0, fill, BAR_HEIGHT)
-    col = progress_colors[int(fill / 100)]
-    rect(surf, col, fill_rect, 0, 4)
-    rect(surf, WHITE, outline_rect, 3, 4)
+    if (fill <= BAR_LENGTH):
+        col = progress_colors[int(fill / 100)]
+        rect(surf, col, fill_rect, 0, 4)
+        rect(surf, WHITE, outline_rect, 3, 4)
     screen.blit(tries, (BAR_LENGTH, 0))
 
 
@@ -761,6 +762,7 @@ while not done:
                 aux_start = False
                 waiting = True
                 attempts = 0
+                fill = 0
                 
                 menu_screen()
                 music = pygame.mixer_music.load(os.path.join("assets/music", "Dance of Death.mp3"))
