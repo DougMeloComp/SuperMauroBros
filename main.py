@@ -28,6 +28,10 @@ aux_start = False # Variavel auxiliar para inicial pelo botão
 waiting = True # True indica que está aguardando no Menu
 onShop = False # False indica que a tela da loja está fechada
 
+# Informações da loja
+current_particle_color = "White" # Valor padrão
+name_current_particle_color = "Branco" # Valor padrão
+
 # define a taxa de quadros do programa
 clock = pygame.time.Clock()
 
@@ -385,18 +389,54 @@ def start_game():
         start = True
 
 def open_shop():
-    global onShop
+    global onShop, current_particle_color, name_current_particle_color
     onShop = True
     while onShop:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         screen.fill(BLACK)
+        
+        title = get_font(20)
+        title = title.render(f"Loja", True, WHITE)
+        screen.blit(title, (470, 100))
+        
+        title_new_color = font.render(f"Escolha uma cor de rastro nova", True, WHITE)
+        screen.blit(title_new_color, (50, 170))
+        
+        color_font = get_font(12)
+        color_current = color_font.render(f"Cor atual:", True, WHITE)
+        screen.blit(color_current, (715, 170))
+        name_color_current = color_font.render(f"{name_current_particle_color}", True, current_particle_color)
+        screen.blit(name_color_current, (840, 170))
+        
+        BUTTON_PARTICLE_YELLOW = Button(image=None, pos=(95, 230), 
+                    text_input="Amarelo", font=get_font(12), base_color="Yellow", hovering_color="Yellow")
+        BUTTON_PARTICLE_MAGENTA = Button(image=None, pos=(210, 230), 
+                    text_input="Magenta", font=get_font(12), base_color="Magenta", hovering_color="Magenta")
+        BUTTON_PARTICLE_BLUE = Button(image=None, pos=(310, 230), 
+                    text_input="Azul", font=get_font(12), base_color="Blue", hovering_color="Blue")
+        BUTTON_PARTICLE_RED = Button(image=None, pos=(410, 230), 
+                    text_input="Vermelho", font=get_font(12), base_color="Red", hovering_color="Red")
+        BUTTON_PARTICLE_WHITE = Button(image=None, pos=(530, 230), 
+                    text_input="Branco", font=get_font(12), base_color="White", hovering_color="White")
+        BUTTON_PARTICLE_GRAY = Button(image=None, pos=(630, 230), 
+                    text_input="Cinza", font=get_font(12), base_color="Gray", hovering_color="Gray")
+        BUTTON_PARTICLE_GREEN = Button(image=None, pos=(730, 230), 
+                    text_input="Verde", font=get_font(12), base_color="Green", hovering_color="Green")
+        BUTTON_PARTICLE_CYAN = Button(image=None, pos=(820, 230), 
+                    text_input="Ciano", font=get_font(12), base_color="Cyan", hovering_color="Cyan")
+        BUTTON_PARTICLE_PURPLE = Button(image=None, pos=(910, 230), 
+                    text_input="Roxo", font=get_font(12), base_color="Purple", hovering_color="Purple")
+        
+        BUTTON_PARTICLE_YELLOW.update(screen)
+        BUTTON_PARTICLE_MAGENTA.update(screen)
+        BUTTON_PARTICLE_BLUE.update(screen)
+        BUTTON_PARTICLE_RED.update(screen)
+        BUTTON_PARTICLE_WHITE.update(screen)
+        BUTTON_PARTICLE_GRAY.update(screen)
+        BUTTON_PARTICLE_GREEN.update(screen)
+        BUTTON_PARTICLE_CYAN.update(screen)
+        BUTTON_PARTICLE_PURPLE.update(screen)
 
-        title = font.render(f"Loja", True, "Yellow")
-        screen.blit(title, (100, 100))
-        
-        maintenance = font.render(f"Em Construção...", True, BLUE)
-        screen.blit(maintenance, (420, 360))
-        
         BUTTON_BACK = Button(image=None, pos=(512, 675), 
                             text_input="VOLTAR", font=get_font(12), base_color="White", hovering_color="Cyan")
         
@@ -409,13 +449,40 @@ def open_shop():
                 sys.exit()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if BUTTON_PARTICLE_YELLOW.checkForInput(PLAY_MOUSE_POS):
+                    current_particle_color = "Yellow"
+                    name_current_particle_color = "Amarelo"
+                if BUTTON_PARTICLE_MAGENTA.checkForInput(PLAY_MOUSE_POS):
+                    current_particle_color = "Magenta"
+                    name_current_particle_color = "Magenta"
+                if BUTTON_PARTICLE_BLUE.checkForInput(PLAY_MOUSE_POS):
+                    current_particle_color = "Blue"
+                    name_current_particle_color = "Azul"
+                if BUTTON_PARTICLE_RED.checkForInput(PLAY_MOUSE_POS):
+                    current_particle_color = "Red"
+                    name_current_particle_color = "Vermelho"
+                if BUTTON_PARTICLE_WHITE.checkForInput(PLAY_MOUSE_POS):
+                    current_particle_color = "White"
+                    name_current_particle_color = "Branco"
+                if BUTTON_PARTICLE_GRAY.checkForInput(PLAY_MOUSE_POS):
+                    current_particle_color = "Gray"
+                    name_current_particle_color = "Cinza"
+                if BUTTON_PARTICLE_GREEN.checkForInput(PLAY_MOUSE_POS):
+                    current_particle_color = "Green"
+                    name_current_particle_color = "Verde"
+                if BUTTON_PARTICLE_CYAN.checkForInput(PLAY_MOUSE_POS):
+                    current_particle_color = "Cyan"
+                    name_current_particle_color = "Ciano"
+                if BUTTON_PARTICLE_PURPLE.checkForInput(PLAY_MOUSE_POS):
+                    current_particle_color = "Purple"
+                    name_current_particle_color = "Roxo"
                 if BUTTON_BACK.checkForInput(PLAY_MOUSE_POS):
                     onShop = False
-                    start_screen()
+                    menu_screen()
 
         pygame.display.update()
 
-def start_screen():
+def menu_screen():
     """menu principal. opção para mudar de nível, guia de controlos e visão geral do jogo."""
     global level
     pygame.mixer.music.set_volume(0.1)
@@ -423,9 +490,15 @@ def start_screen():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         screen.blit(BG_MENU, (0,0))
         
-        title = pygame.font.Font("assets/font.ttf", 24)
+        title = get_font(24)
         welcome = title.render(f"Super Mauro Bros", True, WHITE)
         screen.blit(welcome, (320, 100))
+        
+        music_font = get_font(10)
+        music_title = music_font.render(f"Música:", True, "Purple")
+        music_name = music_font.render(f"Iron Maiden - Dance of Death", True, WHITE)
+        screen.blit(music_title, (640, 690))
+        screen.blit(music_name, (720, 690))
         
         BUTTON_START = Button(image=None, pos=(512, 320), 
                     text_input="INICIAR", font=get_font(16), base_color="White", hovering_color="Green")
@@ -462,8 +535,8 @@ def reset():
     """reinicia os grupos de atores, a música, etc. para a morte e o novo nível"""
     global player, elements, player_sprite, level
 
-    if level == 1:
-        pygame.mixer.music.load(os.path.join("assets/music", "castle-town.mp3"))
+    if level == 0:
+        pygame.mixer.music.load(os.path.join("assets/music", "The Trooper.mp3"))
     pygame.mixer.music.set_volume(0.1)
     pygame.mixer_music.play()
     player_sprite = pygame.sprite.Group()
@@ -489,7 +562,7 @@ def draw_stats(surf, money=0):
     progress_colors = [pygame.Color("red"), pygame.Color("orange"), pygame.Color("yellow"), pygame.Color("lightgreen"),
                        pygame.Color("green")]
 
-    tries = font.render(f" Progresso {str(attempts)}", True, WHITE)
+    tries = font.render(f" Tentativa {str(attempts)}", True, WHITE)
     BAR_LENGTH = 498
     BAR_HEIGHT = 12
     for i in range(1, money):
@@ -518,7 +591,7 @@ def wait_for_key():
         pygame.display.flip()
 
         if not start and onShop == False:
-            start_screen()
+            menu_screen()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -604,8 +677,8 @@ pygame.display.set_caption('Super Mauro Bros')
 # inicializar a variável de fonte para desenhar texto mais tarde
 text = font.render('image', False, (255, 255, 0))
 
-# musica
-music = pygame.mixer_music.load(os.path.join("assets/music", "bossfight-Vextron.mp3"))
+# musica do menu
+music = pygame.mixer_music.load(os.path.join("assets/music", "Dance of Death.mp3"))
 pygame.mixer.music.set_volume(0.1)
 pygame.mixer_music.play()
 
@@ -646,9 +719,16 @@ while not done:
     screen.blit(bg, (0, 0))  # Limpar a tela (com o bg)
 
     player.draw_particle_trail(player.rect.left - 1, player.rect.bottom + 2,
-                               WHITE)
+                               current_particle_color)
     screen.blit(alpha_surf, (0, 0))  # Aplicar o alpha_surf na tela.
     draw_stats(screen, coin_count(coins))
+    
+    PLAY_MOUSE_POS = pygame.mouse.get_pos()
+    BUTTON_MENU = Button(image=None, pos=(980, 20), 
+                        text_input="MENU", font=get_font(16), base_color="Yellow", hovering_color="Red")
+    
+    BUTTON_MENU.changeColor(PLAY_MOUSE_POS)
+    BUTTON_MENU.update(screen)
 
     if player.isjump:
         """gira o jogador em um ângulo e faz blit se o jogador estiver pulando"""
@@ -674,6 +754,18 @@ while not done:
                 """change level by keypad"""
 
                 player.jump_amount -= 1
+                
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if BUTTON_MENU.checkForInput(PLAY_MOUSE_POS):
+                start = False
+                aux_start = False
+                waiting = True
+                attempts = 0
+                
+                menu_screen()
+                music = pygame.mixer_music.load(os.path.join("assets/music", "Dance of Death.mp3"))
+                pygame.mixer.music.set_volume(0.1)
+                pygame.mixer_music.play()
 
     pygame.display.flip()
     clock.tick(60)
