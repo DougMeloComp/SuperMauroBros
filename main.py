@@ -3,7 +3,7 @@ import os
 import random
 import pygame
 import sys
-from button import Button
+from components.button import Button
 
 # facilitará a utilização das funções do pygame
 from pygame.math import Vector2
@@ -54,7 +54,7 @@ def get_font(size): # Retornando a fonte para os botões
     return pygame.font.Font("assets/font.ttf", size)
 
 # Carregando o plano de fundo do menu
-BG_MENU = pygame.image.load("assets/bg-cemitery.jpg")
+BG_MENU = pygame.image.load("assets/images/bg-cemitery.jpg")
 
 class Player(pygame.sprite.Sprite):
     """Classe para o jogador. Contém o método de atualização, variáveis de vitória e morte, colisões e mais."""
@@ -107,10 +107,10 @@ class Player(pygame.sprite.Sprite):
                 vê se o jogador está a colidir com algum obstáculo"""
                 if isinstance(p, Orb) and (keys[pygame.K_UP] or keys[pygame.K_SPACE]):
                     pygame.draw.circle(alpha_surf, (255, 255, 0), p.rect.center, 18)
-                    screen.blit(pygame.image.load("images/editor-0.9s-47px.gif"), p.rect.center)
+                    screen.blit(pygame.image.load("assets/images/editor-0.9s-47px.gif"), p.rect.center)
                     self.jump_amount = 12  # dá um pequeno impulso quando a esfera é atingida
                     self.jump()
-                    self.jump_amount = 10  # volta o jump_amount ao normal
+                    self.jump_amount = 10  # volta o jump_amount ao normal             
 
                 if isinstance(p, End):
                     self.win = True
@@ -262,9 +262,9 @@ def init_level(map):
 
             if col == "S":
                 Spike(spike, (x, y), elements)
+                
             if col == "O":
                 orbs.append([x, y])
-
                 Orb(orb, (x, y), elements)
 
             if col == "T":
@@ -346,9 +346,9 @@ def death_screen():
     screen.blits([[game_over, (100, 100)], [tip, (100, 400)]])
     
     # Chamar a tela inicial depois da morrer
-    # global start
-    # start = False
-    # wait_for_key()
+        # global start
+        # start = False
+        # wait_for_key()
     
     reset()
 
