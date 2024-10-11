@@ -1,9 +1,12 @@
-import csv
 import os
-import random
-import pygame
 import sys
+import csv
+import random
 from components.button import Button
+
+# Tira mensagem do pygame no console.
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+import pygame
 
 # facilitará a utilização das funções do pygame
 from pygame.math import Vector2
@@ -388,11 +391,14 @@ def open_shop():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         screen.fill(BLACK)
 
-        title = font.render(f"Loja", True, WHITE)
+        title = font.render(f"Loja", True, "Yellow")
         screen.blit(title, (100, 100))
         
+        maintenance = font.render(f"Em Construção...", True, BLUE)
+        screen.blit(maintenance, (420, 360))
+        
         BUTTON_BACK = Button(image=None, pos=(512, 675), 
-                            text_input="VOLTAR", font=get_font(16), base_color="White", hovering_color="Green")
+                            text_input="VOLTAR", font=get_font(12), base_color="White", hovering_color="Cyan")
         
         BUTTON_BACK.changeColor(PLAY_MOUSE_POS)
         BUTTON_BACK.update(screen)
@@ -417,13 +423,14 @@ def start_screen():
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
         screen.blit(BG_MENU, (0,0))
         
-        welcome = font.render(f"Super Mauro Bros", True, WHITE)
-        screen.blit(welcome, (100, 100))
+        title = pygame.font.Font("assets/font.ttf", 24)
+        welcome = title.render(f"Super Mauro Bros", True, WHITE)
+        screen.blit(welcome, (320, 100))
         
         BUTTON_START = Button(image=None, pos=(512, 320), 
                     text_input="INICIAR", font=get_font(16), base_color="White", hovering_color="Green")
         BUTTON_SHOP = Button(image=None, pos=(512, 370), 
-                    text_input="LOJA", font=get_font(16), base_color="White", hovering_color="Purple")
+                    text_input="LOJA", font=get_font(16), base_color="White", hovering_color="Yellow")
         BUTTON_CLOSE = Button(image=None, pos=(512, 420), 
                     text_input="SAIR", font=get_font(16), base_color="White", hovering_color="Red")
         

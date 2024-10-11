@@ -1,7 +1,15 @@
 /venv
 /env
+
 /__pycache__
 /components/__pycache__
 /assets/__pycache__
 /assets/images/__pycache__
 /assets/music/__pycache__
+
+.*
+/.*
+/components/.*
+/assets/.*
+/assets/images/.*
+/assets/music/.*
