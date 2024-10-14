@@ -261,21 +261,63 @@ def init_level(map):
     for row in map:
         for col in row:
 
+           # Blocos de plataforma
             if col == "0":
                 Platform(block, (x, y), elements)
 
+            if col == "1":
+                Platform(LE, (x, y), elements)
+
+            if col == "2":
+                Platform(CE, (x, y), elements)
+
+            if col == "3":
+                Platform(LD, (x, y), elements)
+
+            if col == "4":
+                Platform(ME, (x, y), elements)
+
+            if col == "5":
+                Platform(MC, (x, y), elements)
+
+            if col == "6":
+                Platform(MD, (x, y), elements)
+
+            if col == "7":
+                Platform(BE, (x, y), elements)
+
+            if col == "8":
+                Platform(BC, (x, y), elements)
+
+            if col == "9":
+                Platform(BD, (x, y), elements)             
+
+            #Moeda
             if col == "C":
                 Coin(coin, (x, y), elements)
 
+            #Espinhos
             if col == "S":
                 Spike(spike, (x, y), elements)
+
+            if col == "A":
+                Spike(AR, (x, y), elements)
+
+            if col == "L":
+                Spike(LA, (x, y), elements)
                 
+            #Orb de pulo
             if col == "O":
                 orbs.append([x, y])
                 Orb(orb, (x, y), elements)
 
+            #Objetos invisíveis
             if col == "T":
                 Trick(trick, (x, y), elements)
+
+            if col == "P":
+                Trick(PLACA, (x, y), elements)
+
 
             if col == "End":
                 End(block, (x, y), elements)
@@ -650,6 +692,30 @@ orb = pygame.image.load((os.path.join("assets/images", "orb-yellow.png")))
 orb = pygame.transform.smoothscale(orb, (32, 32))
 trick = pygame.image.load((os.path.join("assets/images", "obj-breakable.png")))
 trick = pygame.transform.smoothscale(trick, (32, 32))
+LE = pygame.image.load(os.path.join("assets/images", "1.png")) #Bloco esquerdo superior
+LE = pygame.transform.smoothscale(LE, (32, 32))
+CE = pygame.image.load(os.path.join("assets/images", "2.png")) #Bloco central superior
+CE = pygame.transform.smoothscale(CE, (32, 32))
+LD = pygame.image.load(os.path.join("assets/images", "3.png")) #Bloco direito superior
+LD = pygame.transform.smoothscale(LD, (32, 32))
+ME = pygame.image.load(os.path.join("assets/images", "4.png")) #Bloco esquerdo meio
+ME = pygame.transform.smoothscale(ME, (32, 32))
+MC = pygame.image.load(os.path.join("assets/images", "5.png")) #Bloco central meio
+MC = pygame.transform.smoothscale(MC, (32, 32))
+MD = pygame.image.load(os.path.join("assets/images", "6.png")) #Bloco direito meio
+MD = pygame.transform.smoothscale(MD, (32, 32))
+BE = pygame.image.load(os.path.join("assets/images", "7.png")) #Bloco esquerdo baixo
+BE = pygame.transform.smoothscale(BE, (32, 32))
+BC = pygame.image.load(os.path.join("assets/images", "8.png")) #Bloco central baixo
+BC = pygame.transform.smoothscale(BC, (32, 32))
+BD = pygame.image.load(os.path.join("assets/images", "9.png")) #Bloco direito baixo
+BD = pygame.transform.smoothscale(BD, (32, 32))
+AR = pygame.image.load(os.path.join("assets/images", "arvore.png")) #Arvore (Funciona como espinho)
+AR = resize(AR)
+LA = pygame.image.load(os.path.join("assets/images", "lapide.png")) #Lapide (Funciona como espinho)
+LA = resize(LA)
+PLACA = pygame.image.load((os.path.join("assets/images", "placa.png"))) #Placa (Objeto invísivel sem hit box)
+PLACA = pygame.transform.smoothscale(PLACA, (32, 32))
 
 #  inteiros
 fill = 0
