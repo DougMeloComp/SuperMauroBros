@@ -29,8 +29,8 @@ waiting = True # True indica que está aguardando no Menu
 onShop = False # False indica que a tela da loja está fechada
 
 # Informações da loja
-current_particle_color = "White" # Valor padrão
-name_current_particle_color = "Branco" # Valor padrão
+current_particle_color = "White" # Valor padrão da cor da particula (rastro do personagem)
+name_current_particle_color = "Branco" # Valor padrão da tradução da cor da particula (rastro do personagem)
 
 # define a taxa de quadros do programa
 clock = pygame.time.Clock()
