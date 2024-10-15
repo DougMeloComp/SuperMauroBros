@@ -611,7 +611,7 @@ def draw_stats(surf, money=0):
         screen.blit(coin, (BAR_LENGTH, 25))
     if (fill <= BAR_LENGTH):
         fill += 0.27
-        print('Barra de Progresso: ', str("{:.2f}".format(fill))) # Teste para ver progressão
+        # print('Barra de Progresso: ', str("{:.2f}".format(fill))) # Teste para ver progressão 
     else:
         fill += 0.0
     outline_rect = pygame.Rect(0, 0, BAR_LENGTH, BAR_HEIGHT)
@@ -652,7 +652,7 @@ def coin_count(coins):
     return coins
 
 
-def resize(img, size=(32, 32)):
+def resize(img, size=(10, 10)):
     """redimensionar imagens
     param img: imagem a redimensionar
     tipo img: não tenho a certeza, provavelmente um objeto
