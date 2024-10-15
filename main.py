@@ -61,7 +61,7 @@ def get_font(size): # Retornando a fonte para os botões
     return pygame.font.Font("assets/font.ttf", size)
 
 # Carregando o plano de fundo do menu
-BG_MENU = pygame.image.load("assets/images/bg-cemitery.jpg")
+BG_MENU = pygame.image.load("assets/images/bg-menu.jpg")
 
 class Player(pygame.sprite.Sprite):
     """Classe para o jogador. Contém o método de atualização, variáveis de vitória e morte, colisões e mais."""
@@ -684,7 +684,7 @@ elements = pygame.sprite.Group()
 # imagens
 spike = pygame.image.load(os.path.join("assets/images", "obj-spike.png"))
 spike = resize(spike)
-coin = pygame.image.load(os.path.join("assets/images", "coin.png"))
+coin = pygame.image.load(os.path.join("assets/images", "coin2.png"))
 coin = pygame.transform.smoothscale(coin, (32, 32))
 block = pygame.image.load(os.path.join("assets/images", "block_1.png"))
 block = pygame.transform.smoothscale(block, (32, 32))
@@ -750,7 +750,7 @@ pygame.mixer.music.set_volume(0.1)
 pygame.mixer_music.play()
 
 # imagem de fundo
-imgGame = pygame.image.load(os.path.join("assets/images", "bg.png"))
+imgGame = pygame.image.load(os.path.join("assets/images", "bg-start.jpg"))
 bg = pygame.transform.scale(imgGame, resolutionScreen)
 
 # cria objeto da classe player
