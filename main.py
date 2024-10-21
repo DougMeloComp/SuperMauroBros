@@ -15,7 +15,7 @@ from pygame.draw import rect
 # Inicializa a função pygame
 pygame.init()
 
-# cria uma variável de ecrã de 800 x 600
+# cria uma variável de ecrã de 1024 x 720
 resolutionScreen = (1024, 720)
 screen = pygame.display.set_mode(resolutionScreen)
 
@@ -44,11 +44,10 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
-"""As funções lambda são funções anónimas que podem ser atribuídas a uma variável.
-e.g.
+"""
+As funções lambda são funções anónimas que podem ser atribuídas a uma variável.
 1. x = lambda x: x + 2 # recebe um parâmetro x e adiciona-lhe 2
-2. print(x(4))
->>6
+2. print(x(4)) >>6
 """
 color = lambda: tuple([random.randint(0, 255) for i in range(3)])  # função lambda para a cor aleatória, não uma constante.
 GRAVITY = Vector2(0, 0.86)  # Vector2 é um pygame
@@ -70,22 +69,22 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self, image, platforms, pos, *groups):
         """
-        :param imagem: avatar do rosto do bloco
-        :param plataformas: obstáculos como moedas, blocos, picos e esferas
-        :param pos: posição inicial
-        :param groups: recebe qualquer número de grupos de actores.
+        :parametro imagem: avatar do rosto do bloco
+        :parametro plataformas: obstáculos como moedas, blocos, picos e orb
+        :parametro pos: posição inicial
+        :parametro groups: recebe qualquer número de grupos de actores.
         """
         super().__init__(*groups)
         self.onGround = False  # jogador no chão?
-        self.platforms = platforms  # obstáculos mas cria uma variável de classe para isso
+        self.platforms = platforms  # obstáculos cria uma variável de classe para isso
         self.died = False  # o jogador morreu?
         self.win = False  #  o jogador venceu o nível?
 
         self.image = pygame.transform.smoothscale(image, (32, 32))
         self.rect = self.image.get_rect(center=pos)  # get rect obtém um objeto Rect a partir da imagem
         self.jump_amount = 10.1  # força do salto
-        self.particles = []  # rasto do jogador
-        self.isjump = False  # o jogador está a saltar?
+        self.particles = []  # rastro do jogador
+        self.isjump = False  # o jogador esta pulando?
         self.vel = Vector2(0, 0)  # a velocidade começa em zero
 
     def draw_particle_trail(self, x, y, color=(255, 255, 255)):
@@ -105,7 +104,7 @@ class Player(pygame.sprite.Sprite):
             if particle[2] <= 0:
                 self.particles.remove(particle)
 
-    def collide(self, yvel, platforms):
+    def collide(self, yvel, platforms): #Classe de colisão
         global coins
 
         for p in platforms:
@@ -133,20 +132,20 @@ class Player(pygame.sprite.Sprite):
                     p.rect.x = 0
                     p.rect.y = 0
 
-                if isinstance(p, Platform):  #  estes são os blocos (pode ser confuso devido a self.platforms)
+                if isinstance(p, Platform):  #  Estes são os blocos
 
                     if yvel > 0:
                         """se o jogador estiver a descer(yvel é +)"""
-                        self.rect.bottom = p.rect.top  # não deixar o jogador atravessar o chão
+                        self.rect.bottom = p.rect.top  # Não deixa o jogador atravessar o chão
                         self.vel.y = 0  # velocidade y restante porque o jogador está no chão
 
-                        # define self.onGround para true porque o jogador colidiu com o chão
+                        # Define self.onGround para true porque o jogador colidiu com o chão
                         self.onGround = True
 
                         # reseta o pulo
                         self.isjump = False
                     elif yvel < 0:
-                        """se y vel for (-),o jogador colidiu enquanto saltava"""
+                        """se yvel for (-), o jogador colidiu enquanto saltava"""
                         self.rect.top = p.rect.bottom  # o topo do jogador é colocado no fundo do bloco como se batesse na cabeça
                     else:
                         """caso contrário, se o jogador colidir com um bloco, morre"""
@@ -155,13 +154,13 @@ class Player(pygame.sprite.Sprite):
                         self.died = True
 
     def jump(self):
-        self.vel.y = -self.jump_amount  # a velocidade vertical do jogador é negativa, por isso ^
+        self.vel.y = -self.jump_amount  # a velocidade vertical do jogador é negativa, por isso
 
     def update(self):
         """atualizar jogador"""
         if self.isjump:
             if self.onGround:
-                """se o jogador quiser saltar e estiver no chão: só então é permitido saltar"""
+                """se o jogador quiser saltar e estiver no chão: Ai é permitido saltar"""
                 self.jump()
 
         if not self.onGround:  # só acelera com a gravidade se estiver no ar
@@ -227,14 +226,14 @@ class Coin(Draw):
 
 
 class Orb(Draw):
-    """orbe. clica no espaço ou na seta para cima enquanto estás em cima dela para saltares no ar"""
+    """orbe. clica no espaço enquanto estás em cima dela para ganhar um impulso no ar"""
 
     def __init__(self, image, pos, *groups):
         super().__init__(image, pos, *groups)
 
 
 class Trick(Draw):
-    """”bloco, mas é um truque porque podes passar por ele"""
+    """”Bloco invisível, para ser usado como decoração, não tem colisão"""
 
     def __init__(self, image, pos, *groups):
         super().__init__(image, pos, *groups)
@@ -340,7 +339,7 @@ def blitRotate(surf, image, pos, originpos: tuple, angle: float):
     box = [Vector2(p) for p in [(0, 0), (w, 0), (w, -h), (0, -h)]]
     box_rotate = [p.rotate(angle) for p in box]
 
-    # certifica-se de que o jogador não se sobrepõe, utiliza algumas funções lambda (coisas novas que não aprendemos sobre o número 1)
+    # certifica-se de que o jogador não se sobrepõe, utiliza algumas funções lambda
     min_box = (min(box_rotate, key=lambda p: p[0])[0], min(box_rotate, key=lambda p: p[1])[1])
     max_box = (max(box_rotate, key=lambda p: p[0])[0], max(box_rotate, key=lambda p: p[1])[1])
     # calcula a translação do pivot
@@ -430,7 +429,7 @@ def start_game():
     if aux_start == True:
         start = True
 
-def open_shop():
+def open_shop(): #Classe de estilização do rastro do player
     global onShop, current_particle_color, name_current_particle_color
     onShop = True
     while onShop:
@@ -525,7 +524,7 @@ def open_shop():
         pygame.display.update()
 
 def menu_screen():
-    """menu principal. opção para mudar de nível, guia de controlos e visão geral do jogo."""
+    """menu principal. opção para mudar de nível, guia de controles e visão geral do jogo."""
     global level
     pygame.mixer.music.set_volume(0.1)
     if not start and onShop == False:
@@ -533,12 +532,12 @@ def menu_screen():
         screen.blit(BG_MENU, (0,0))
         
         title = get_font(24)
-        welcome = title.render(f"Super Mauro Bros", True, WHITE)
+        welcome = title.render(f"Super Mauro Bros", True, WHITE) #Titulo do jogo
         screen.blit(welcome, (320, 100))
         
         music_font = get_font(10)
         music_title = music_font.render(f"Música:", True, "Purple")
-        music_name = music_font.render(f"Iron Maiden - Dance of Death", True, WHITE)
+        music_name = music_font.render(f"Iron Maiden - Dance of Death", True, WHITE) #Nome da musica do menu
         screen.blit(music_title, (640, 690))
         screen.blit(music_name, (720, 690))
         
@@ -574,7 +573,7 @@ def menu_screen():
 
 
 def reset():
-    """reinicia os grupos de atores, a música, etc. para a morte e o novo nível"""
+    """Reinicia os grupos de atores, a música, etc. para a morte e o novo nível"""
     global player, elements, player_sprite, level
 
     if level == 0:
@@ -590,7 +589,7 @@ def reset():
 
 
 def move_map():
-    """move obstáculos ao longo do ecrã"""
+    """Move obstáculos ao longo da tela"""
     for sprite in elements:
         sprite.rect.x -= CameraX
 
@@ -652,15 +651,13 @@ def coin_count(coins):
     return coins
 
 
-def resize(img, size=(10, 10)):
+def resize(img, size=(32, 32)):
     """redimensionar imagens
     param img: imagem a redimensionar
     tipo img: não tenho a certeza, provavelmente um objeto
     param size: a predefinição é 32 porque esse é o tamanho do mosaico
     tipo tamanho: tupla
     :return: imagem redimensionada
-
-    :rtype:objeto??
     """
     resized = pygame.transform.smoothscale(img, size)
     return resized
