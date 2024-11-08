@@ -795,11 +795,11 @@ while not done:
     BUTTON_MENU.update(screen)
 
     if player.isjump:
-        """gira o jogador em um ângulo e faz blit se o jogador estiver pulando"""
+        """Gira o jogador em um ângulo e faz blit se o jogador estiver pulando"""
         angle -= 8.1712  # este pode ser o ângulo necessário para fazer uma volta de 360 ​​graus no comprimento coberto em um salto pelo jogador
         blitRotate(screen, player.image, player.rect.center, (16, 16), angle)
     else:
-        """ise player.isjump for falso, então faça blit normalmente (usando Group().draw() para sprites"""
+        """Se player.isjump for falso, então faça blit normalmente (usando Group().draw() para sprites"""
         player_sprite.draw(screen)  # desenha o grupo de sprites do jogador
     elements.draw(screen)  # desenha todos os outros obstáculos
 
@@ -808,14 +808,14 @@ while not done:
             done = True
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                """User friendly exit"""
+                """Saida Fácil"""
                 done = True
             if event.key == pygame.K_2:
-                """change level by keypad"""
+                """Mudar de nível através do teclado"""
                 player.jump_amount += 1
 
             if event.key == pygame.K_1:
-                """change level by keypad"""
+                """Mudar de nível através do teclado"""
 
                 player.jump_amount -= 1
                 
